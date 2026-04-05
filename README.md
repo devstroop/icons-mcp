@@ -1,4 +1,4 @@
-# SVG MCP Server
+# Icons MCP Server
 
 An MCP server providing access to **200,000+ icons** from 150+ libraries. Search, retrieve, convert, and optimize icons for your applications.
 
