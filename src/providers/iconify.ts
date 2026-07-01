@@ -30,6 +30,7 @@ export class IconifyProvider extends BaseIconProvider {
   requiresApiKey = false;
 
   private collectionsCache: Map<string, IconifyIconSet> | null = null;
+  private _collectionsMap: Map<string, IconifyIconSet> | null = null;
   private readonly popularSets = [
     'mdi',           // Material Design Icons (7000+ icons)
     'ph',            // Phosphor Icons
@@ -64,8 +65,7 @@ export class IconifyProvider extends BaseIconProvider {
       for (const iconId of data.icons) {
         // iconId format is "prefix:name" e.g., "mdi:home"
         const [prefix, name] = iconId.split(':');
-        const collections = await this.getCollections();
-        const collection = collections.get(prefix);
+        const collection = this._collectionsMap?.get(prefix);
 
         results.push({
           name: iconId,
@@ -124,8 +124,7 @@ export class IconifyProvider extends BaseIconProvider {
       const svgContent = await response.text();
       
       // Get collection info for metadata
-      const collections = await this.getCollections();
-      const collection = collections.get(prefix);
+      const collection = this._collectionsMap?.get(prefix);
 
       return {
         name: `${prefix}:${iconName}`,
@@ -174,6 +173,7 @@ export class IconifyProvider extends BaseIconProvider {
 
       const data = await response.json() as Record<string, IconifyIconSet>;
       this.collectionsCache = new Map(Object.entries(data));
+      this._collectionsMap = this.collectionsCache;
       return this.collectionsCache;
     } catch (error) {
       console.error('Failed to load Iconify collections:', error);

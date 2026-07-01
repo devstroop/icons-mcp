@@ -53,11 +53,10 @@ export async function searchIcons(args: any) {
         allResults.push(...results);
       } catch (error) {
         console.error(`Error searching ${libraryName}:`, error);
-        // Continue with other providers even if one fails
       }
     }
 
-    // Sort results by relevance (simple scoring based on exact matches)
+    // Sort results by relevance
     const sortedResults = allResults
       .sort((a, b) => {
         const aScore = calculateRelevanceScore(a, query);
@@ -66,7 +65,7 @@ export async function searchIcons(args: any) {
       })
       .slice(0, limit);
 
-    // Cache the results for 1 hour
+    // Cache for 1 hour
     cacheManager.set(cacheKey, sortedResults, 60 * 60 * 1000);
 
     return {
@@ -93,20 +92,17 @@ function calculateRelevanceScore(icon: IconSearchResult, query: string): number 
   const queryLower = query.toLowerCase();
   let score = 0;
 
-  // Exact name match gets highest score
   if (icon.name.toLowerCase() === queryLower) {
     score += 100;
   } else if (icon.name.toLowerCase().includes(queryLower)) {
     score += 50;
   }
 
-  // Tag matches
   const matchingTags = icon.tags.filter(tag => 
     tag.toLowerCase().includes(queryLower)
   );
   score += matchingTags.length * 10;
 
-  // Category match
   if (icon.category && icon.category.toLowerCase().includes(queryLower)) {
     score += 20;
   }

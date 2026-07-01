@@ -39,7 +39,6 @@ export abstract class BaseIconProvider implements IconProvider {
 
   async isAvailable(): Promise<boolean> {
     try {
-      // Simple connectivity check
       const response = await fetch(this.baseUrl, { method: 'HEAD' });
       return response.ok;
     } catch {
