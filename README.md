@@ -5,8 +5,8 @@ An MCP server providing access to **200,000+ icons** from 150+ libraries. Search
 ## Installation
 
 ```bash
-git clone https://github.com/devstroop/svg-mcp.git
-cd svg-mcp
+git clone https://github.com/devstroop/icons-mcp.git
+cd icons-mcp
 npm install
 npm run build
 ```
@@ -19,7 +19,7 @@ npm run build
   "servers": {
     "svg": {
       "command": "node",
-      "args": ["/path/to/svg-mcp/dist/index.js"]
+      "args": ["/path/to/icons-mcp/dist/index.js"]
     }
   }
 }
@@ -31,7 +31,7 @@ npm run build
   "mcpServers": {
     "svg": {
       "command": "node",
-      "args": ["/path/to/svg-mcp/dist/index.js"]
+      "args": ["/path/to/icons-mcp/dist/index.js"]
     }
   }
 }
