@@ -17,7 +17,7 @@ npm run build
 ```json
 {
   "servers": {
-    "svg": {
+    "icons": {
       "command": "node",
       "args": ["/path/to/icons-mcp/dist/index.js"]
     }
@@ -29,7 +29,7 @@ npm run build
 ```json
 {
   "mcpServers": {
-    "svg": {
+    "icons": {
       "command": "node",
       "args": ["/path/to/icons-mcp/dist/index.js"]
     }
